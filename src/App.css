@@ -36,3 +36,113 @@
     transform: rotate(360deg);
   }
 }
+
+
+#root {
+  display: flex;
+  max-height: calc(100vh - 50px);
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+/************************ DASHBOARD STARTS ************************ */
+.footer {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+}
+
+
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+
+.imageCard {
+  height: 270px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0 5px 10px 5px;
+  flex: 1 0 calc(25% - 40px);
+  position: relative;
+  max-width: 300px;
+}
+.imageCard > .MuiPaper-elevation1 {
+  box-shadow: none;
+}
+
+.imageCard > .MuiPaper-root > .favorite-icon {
+  position: absolute;
+  right: 0;
+}
+.image-sprite {
+  margin-left: 30%;
+}
+
+
+
+.MuiCardActions-root > .imageCard-add-favorite.imageCard-add-favorite {
+  margin-left: auto;
+  vertical-align: "middle";
+  display: "inline-flex";
+}
+
+
+
+
+.imageCard-description {
+  display: block;
+  display: -webkit-box;
+  max-height: 50px;
+  line-height: 1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+  text-align: justify;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+}
+
+/************************ DASHBOARD END ************************ */
+
+/************************ PAGINATION STARTS ************************ */
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.pagination > li {
+  list-style-type: none;
+  background: #fafafa;
+  padding: 8px;
+  border: solid 1px black;
+}
+
+.pagination > li.active {
+  background-color: lightblue;
+}
+/************************ PAGINATION END *********************** */ 
+
+/************************ DESCRIPTION STARTS ************************ */
+
+.MuiPaper-root > .favorite-icon{
+  color: lightgray;
+  
+}
+.imageCard > .MuiPaper-root > .favorite-icon.active{
+  color: #3f51b5;
+
+}
+
+/************************ DESCRIPTION ENDS ************************ */

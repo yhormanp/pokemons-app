@@ -1,3 +1,47 @@
+# POKEMONS APP
+
+Simple application crated using create-react-app to list pokemons, show description of each pokemons and a list of those marked as favorites.
+
+## STRUCTURE
+
+A simple architecture was build to manage this project where App will manage the main state and the contexts related to the favorite list and user data.
+From App.js the router is implemented to show a login page, a home page with the list of pokemon and a bottom bar navigation to move between favorites and home.
+
+
+The Api is located in the Services folder where the methods used to get data from external api is implemented
+
+Components
+* FavoriteContext and UserContext: Used to shared data related with favorites and user information between components
+* Dashboard: Component that will render the home page with it's title, pagination and list of card where the pokemons are shown
+* Description: Page where a simple description page is implemented and opened in a new window everytime the user click on Learn more
+CURRENT ISSUE: I had no opportunity to fix an issue related with the state manager that is restarted when a new window is opened.
+
+* Favorite: this page will show a list with the cards of the pokemons marked as favorites
+* Footer: component that contains the bottom navigation bar with two links to Home and Favorites
+* ImageCard: Component that holds the structure used to show the pokemon name, it's photo and it's details
+* Pagination: Component used to show the available pages of pagination based on the total of records
+* Sharedlayout: Basic structure used to put the bottom navigation bar on each page
+* SignIn: Component created to validate the access to the application with the following credentials
+USER: abc@gmail.com
+PASSWORD: abc
+
+
+
+The explanation of the code can be found in this link
+https://www.loom.com/share/b73b1c4778004494b8d9f137786853ad?sharedAppSource=personal_library
+
+
+
+The information is being obtained from this Api
+https://pokeapi.co/api/v2/
+
+the session is being stored as a cookie
+
+the favorite list and temporary data to be reviewed in the description of each pokemon is saved as well in the localstorage with the following names
+* pokemon-favorite-list
+* pokemon-temp-list
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

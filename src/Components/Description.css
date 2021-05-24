@@ -1,0 +1,21 @@
+.description-image{
+    width: 150px;
+}
+
+
+.description-container {
+    width: 40vw;
+    border:1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative
+}
+
+.description-text{
+    text-align: justify;
+}
