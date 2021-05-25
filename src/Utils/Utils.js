@@ -1,22 +1,11 @@
-
-  const registerFavoritePokemonOnLocalStrg = (newFavoriteList) => {
-
-    window.localStorage.setItem(
-      "pokemon-favorite-list",
-      JSON.stringify(newFavoriteList)
-    );
-  };
-
-  
-  const registerTempRecordsToShowOnLocalStrg = (recordsToShow) => {
+const registerTempStateOnLocalStrg = (generalState) => {
 
     window.localStorage.setItem(
-      "pokemon-temp-list",
-      JSON.stringify(recordsToShow)
+        "pokemon-temp-list",
+        JSON.stringify(generalState)
     );
-  };
+};
 
-  export {
-    registerFavoritePokemonOnLocalStrg,
-    registerTempRecordsToShowOnLocalStrg
-  }
+export {
+    registerTempStateOnLocalStrg
+}

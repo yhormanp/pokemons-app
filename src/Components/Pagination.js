@@ -6,6 +6,7 @@ const Pagination = ({
   data,
   onPaginationClicked,
 }) => {
+
   const [pageNumberLimit] = useState(+process.env.REACT_APP_MAXIMUM_PAGINATIONS);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(+process.env.REACT_APP_MAXIMUM_PAGINATIONS);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);

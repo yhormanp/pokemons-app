@@ -12,62 +12,80 @@ import Dashboard from "./Components/Dashboard";
 import SignIn from "./Components/SignIn";
 import Favorite from "./Components/Favorite";
 import SharedLayout from "./Components/SharedLayout";
-import { getPokemons, getFavoriteList } from "./Services/pokemonsApi";
+import { getPokemons } from "./Services/pokemonsApi";
 import Description from "./Components/Description";
-import { FavoriteContext } from "./Components/favoriteContext.js/FavoriteContext";
-import { UserContext } from "./Components/UserContext/UserContext";
-import { registerFavoritePokemonOnLocalStrg , registerTempRecordsToShowOnLocalStrg} from './Utils/Utils'
+import { registerTempStateOnLocalStrg } from "./Utils/Utils";
 
 function App() {
-  const [favoriteList, setFavoriteList] = useState([]);
-  const [userContext, setUserContext] = useState(null);
-  const [recordsToShow, setRecordsToShow] = useState([]);
-  const [paginateData, setPaginateData] = useState({
-    page: 1,
-    pageSize: 20,
-    totalCount: 0,
-  });
+  const [generalState, setGeneralState] = useState({});
+  const [currentPage, setCurrentPage] = useState(0);
+
   // GETTING POKEMONS BY PAGE
   useEffect(() => {
-    async function fetchData() {
-      const { data, totalCount } = await getPokemons(paginateData.page);
-      setRecordsToShow(data);
-      console.log('registering, ', data, paginateData.page)
-      registerTempRecordsToShowOnLocalStrg(data);
-      setPaginateData((prevState) => {
-        return { ...prevState, totalCount: totalCount };
-      });
+    async function fetchTempState() {
+      const currentState = JSON.parse(
+        window.localStorage.getItem("pokemon-temp-list")
+      );
+      if (currentState) {
+        setGeneralState(currentState);
+        setCurrentPage(currentState.paginate.page);
+      } else {
+        setGeneralState({
+          paginate: {
+            page: 1,
+            pageSize: 20,
+            totalCount: 0,
+          },
+        });
+        setCurrentPage(1);
+      }
     }
-    fetchData();
-  }, [paginateData.page]);
-
-  // GETTING FAVORITE LIST
-  useEffect(() => {
-    async function fetchFavoriteList() {
-      const data = await getFavoriteList();
-      setFavoriteList(JSON.parse(data));
-    }
-    fetchFavoriteList();
+    fetchTempState();
   }, []);
 
+  useEffect(async () => {
+    await fetchNextPageData();
+  }, [currentPage]);
+
+  async function fetchNextPageData() {
+    if (generalState.paginate) {
+      const { data, totalCount } = await getPokemons(
+        generalState.paginate.page
+      );
+      const paginateModified = {
+        ...generalState.paginate,
+        totalCount: totalCount,
+      };
+      const newState = {
+        ...generalState,
+        recordsToShow: data,
+        paginate: paginateModified,
+      };
+      setGeneralState(newState);
+      registerTempStateOnLocalStrg(newState);
+    }
+  }
+
   const onPaginationClicked = (newPageIndex) => {
-    setPaginateData((prevState) => {
-      return { ...prevState, page: newPageIndex };
+    const paginateModified = { ...generalState.paginate, page: newPageIndex };
+    setGeneralState((prevState) => {
+      return { ...prevState, paginate: paginateModified };
     });
+
+    setCurrentPage(newPageIndex);
   };
 
   const registerFavoritePokemon = (newFavoriteList) => {
-    setFavoriteList(newFavoriteList);
-
-    registerFavoritePokemonOnLocalStrg(newFavoriteList);
-   
+    const newState = { ...generalState, favoriteList: newFavoriteList };
+    setGeneralState(newState);
+    registerTempStateOnLocalStrg(newState);
   };
 
   const onAddFavorite = (pokemonData, isFavorite) => {
+    const favoriteList = generalState.favoriteList;
     if (!isFavorite) {
       // ADD TO FAVORITES
-
-      if (favoriteList != null) {
+      if (favoriteList && favoriteList.length > 0) {
         const favoriteIndex = favoriteList.findIndex(
           (pokemon) => pokemon.id === pokemonData.id
         );
@@ -109,29 +127,29 @@ function App() {
             <Redirect to="/login" />
           </Route>
           <Route path="/login">
-            <SignIn onSetUserContext={setUserContext}></SignIn>
+            <SignIn></SignIn>
           </Route>
-          <UserContext.Provider value={userContext}>
-            <FavoriteContext.Provider value={favoriteList}>
-              <SharedLayout userContextData={userContext}></SharedLayout>
-              <Route path="/home">
-                <Dashboard
-                  paginate={paginateData}
-                  onPaginationClicked={onPaginationClicked}
-                  onAddFavorite={onAddFavorite}
-                  recordsToShow={recordsToShow}
-                ></Dashboard>
-              </Route>
-              <Route path="/favorites">
-                <Favorite
-                  paginate={paginateData}
-                  onPaginationClicked={onPaginationClicked}
-                  onAddFavorite={onAddFavorite}
-                ></Favorite>
-              </Route>
-              <Route path="/description/:id" component={Description}></Route>
-            </FavoriteContext.Provider>
-          </UserContext.Provider>
+
+          <Route path="/home">
+            <Dashboard
+              paginate={generalState.paginate}
+              onPaginationClicked={onPaginationClicked}
+              onAddFavorite={onAddFavorite}
+              recordsToShow={generalState.recordsToShow}
+              favoriteList={generalState.favoriteList}
+            ></Dashboard>
+            <SharedLayout></SharedLayout>
+          </Route>
+          <Route path="/favorites">
+            <Favorite
+              paginate={generalState.paginate}
+              onPaginationClicked={onPaginationClicked}
+              onAddFavorite={onAddFavorite}
+              favoriteList={generalState.favoriteList}
+            ></Favorite>
+            <SharedLayout></SharedLayout>
+          </Route>
+          <Route path="/description/:id" component={Description}></Route>
         </Switch>
       </Router>
     </>

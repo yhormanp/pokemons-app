@@ -11,10 +11,11 @@ From App.js the router is implemented to show a login page, a home page with the
 The Api is located in the Services folder where the methods used to get data from external api is implemented
 
 Components
-* FavoriteContext and UserContext: Used to shared data related with favorites and user information between components
+
 * Dashboard: Component that will render the home page with it's title, pagination and list of card where the pokemons are shown
 * Description: Page where a simple description page is implemented and opened in a new window everytime the user click on Learn more
 CURRENT ISSUE: I had no opportunity to fix an issue related with the state manager that is restarted when a new window is opened.
+ISSUE SOLVED: all the state is being managed in a unique state with all properties that will be stored in the localstorage and reloaded if it exists when the page is reloaded. in this way, the issue mentioned before, to keep the state even if a new window is opened, was solved. now, any description of any pokemon can be opened with no problems
 
 * Favorite: this page will show a list with the cards of the pokemons marked as favorites
 * Footer: component that contains the bottom navigation bar with two links to Home and Favorites
@@ -37,9 +38,9 @@ https://pokeapi.co/api/v2/
 
 the session is being stored as a cookie
 
-the favorite list and temporary data to be reviewed in the description of each pokemon is saved as well in the localstorage with the following names
-* pokemon-favorite-list
+the general state of the application is being maintained with all the pokemons information and it's saved as well in the localstorage with the following name
 * pokemon-temp-list
+In this way the general state will be shared with new blank opened windows
 
 
 # Getting Started with Create React App
