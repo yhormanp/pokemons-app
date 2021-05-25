@@ -14,8 +14,8 @@ Components
 
 * Dashboard: Component that will render the home page with it's title, pagination and list of card where the pokemons are shown
 * Description: Page where a simple description page is implemented and opened in a new window everytime the user click on Learn more
-CURRENT ISSUE: I had no opportunity to fix an issue related with the state manager that is restarted when a new window is opened.
-ISSUE SOLVED: all the state is being managed in a unique state with all properties that will be stored in the localstorage and reloaded if it exists when the page is reloaded. in this way, the issue mentioned before, to keep the state even if a new window is opened, was solved. now, any description of any pokemon can be opened with no problems
+* CURRENT ISSUE: I had no opportunity to fix an issue related with the state manager that is restarted when a new window is opened.
+* ISSUE SOLVED: all the state is being managed in a unique state with all properties that will be stored in the localstorage and reloaded if it exists when the page is reloaded. in this way, the issue mentioned before, to keep the state even if a new window is opened, was solved. now, any description of any pokemon can be opened with no problems
 
 * Favorite: this page will show a list with the cards of the pokemons marked as favorites
 * Footer: component that contains the bottom navigation bar with two links to Home and Favorites
@@ -23,8 +23,8 @@ ISSUE SOLVED: all the state is being managed in a unique state with all properti
 * Pagination: Component used to show the available pages of pagination based on the total of records
 * Sharedlayout: Basic structure used to put the bottom navigation bar on each page
 * SignIn: Component created to validate the access to the application with the following credentials
-USER: abc@gmail.com
-PASSWORD: abc
+* USER: abc@gmail.com
+* PASSWORD: abc
 
 
 
