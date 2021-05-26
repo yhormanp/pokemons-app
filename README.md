@@ -29,18 +29,21 @@ The Api is located in the Services folder where the methods used to get data fro
 
 
 
-The explanation of the code can be found in this link
+* The explanation of the code can be found in this link
 https://www.loom.com/share/b73b1c4778004494b8d9f137786853ad?sharedAppSource=personal_library
 
 
+* The application can be tested in Heroku , through this URL
+https://pokemons-list-app.herokuapp.com/
 
-The information is being obtained from this Api
+* The information is being obtained from this Api
 https://pokeapi.co/api/v2/
 
 the session is being stored as a cookie
 
 the general state of the application is being maintained with all the pokemons information and it's saved as well in the localstorage with the following name
-* pokemon-temp-list
+* pokemon-temp-list.\
+
 In this way the general state will be shared with new blank opened windows
 
 
