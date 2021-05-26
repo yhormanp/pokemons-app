@@ -55,6 +55,11 @@
   height: 50px;
 }
 
+.filter-input{
+  width: 20vw;
+  margin: 0 auto;
+}
+
 
 .container-cards {
   display: flex;
